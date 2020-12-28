@@ -90,7 +90,7 @@ TG_name: the names of the target genes<br>
    
 
 ## Additional Information
-We have constructed an Arabidopsis gene co-expression network based on the graphical Gaussian model (GGM) in our orginal paper by Gene <i>et al.</i>. 1,085 gene co-expression modules were identified from the network. These modules are listed within the file "AtGGM2020.gene.modules.txt". You can find this file inside the data directory. It can be used as an example input to infer up-stream TF regulators.
+Will update soon.
 
 ## Reference
 
