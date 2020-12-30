@@ -68,7 +68,7 @@ library("circlize")
 drawChordDiagram(chordfile = "chord.lists.txt", ratio = 1)
 drawChordDiagram(chordfile = "chord.lists.txt", ratio = 0.6)
 ```
-Ratio specifies the relative size of the target gene area occupies. You can repeat step a and b to draw diagrams for another module.
+`ratio` specifies the relative size of the target gene area occupies. You can repeat step a and b to draw diagrams for another module.
 
 #### c. Use a single command in R to draw the diagram
 One can also directly issue the following command within a R console to draw a Chord diagram for a module:
