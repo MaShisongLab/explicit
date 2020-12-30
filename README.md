@@ -86,10 +86,10 @@ The MATLAB function <B>explicit</B>, as specified within the file "explicit.m", 
 ```matlab
 mdl = explicit( TF_expression, TG_expression, TF_name, TG_name)
 ```
-TF_expression: the expression matrix for TF, with rows representing samples and columns representing genes 
-TG_expression: the expression matrix for target genes, with rows representing samples and columns representing genes 
-TF_name: the names of the TF genes
-TG_name: the names of the target genes
+`TF_expression`: the expression matrix for TF, with rows representing samples and columns representing genes <br>
+`TG_expression`: the expression matrix for target genes, with rows representing samples and columns representing genes <br> 
+`TF_name`: the names of the TF genes <br>
+`TG_name`: the names of the target genes <br>
 
 ## Additional Information
 Will update soon.
