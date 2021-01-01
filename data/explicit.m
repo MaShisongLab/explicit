@@ -1,6 +1,6 @@
 %   Copyright (C) 2020  Ma Shisong Lab  All Rights Reserved.
 
-classdef explicit.m
+classdef explicit
 	properties
 		beta =  [];   % tf (row)  x gene (col)
 		beta_pvalue = [];  % tf x gene
