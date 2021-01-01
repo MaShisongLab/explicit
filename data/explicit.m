@@ -75,10 +75,6 @@ classdef explicit
 			e4 = beta_pvalue(idx);
 			e4 = round(e4,4,'significant');
 			[e1, e2] = ind2sub(size(beta), idx);
-
-			cAB = corr(A, B);
-			e5 = cAB(sub2ind(size(cAB),e1,e2));
-			e5 = round(e5, 4);
 			
 			if nargin > 2
 				tf_name = string(tf_name);
@@ -93,8 +89,8 @@ classdef explicit
 				e2 = e2';
 			end
 
-			colName = {'Gene';'TF';'beta';'beta_pvalue';'correlation'};
-			SigEdges = table(e2,e1,e3,e4,e5,'VariableNames',colName);
+			colName = {'Gene';'TF';'beta';'beta_pvalue'};
+			SigEdges = table(e2,e1,e3,e4,'VariableNames',colName);
 			obj.SigEdges = SigEdges;
 
 		end
