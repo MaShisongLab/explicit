@@ -58,10 +58,9 @@ open IN, $edge_file ;
 while ( $l = <IN>){
 	chomp $l;
 	@t = split("\t",$l);
-	my $pc = int($t[4] * 10000 + 0.5) / 10000;  #deleted
 	my $coef = int($t[2] * 10000 + 0.5) / 10000;
 	if ( $t[3] <= $pvalue_cutoff ){
-		$e{$t[0]} .= "$t[1] $coef $t[3] $pc\t";
+		$e{$t[0]} .= "$t[1] $coef $t[3]\t";
 		$tfc{$t[1]} ++;
 	}
 }
@@ -91,7 +90,10 @@ open IN, $cluster_file;
 while ( $l = <IN>){
 	chomp $l;
 	@t = split("\t", $l);
-	if ( $seen{$t[0]}){				# only consider target genes
+	$t[0] =~ s/^\s+|\s+$//;
+	$t[0] = uc ($t[0]);
+	$t[0] = substr($t[0],0,9);
+	if ( $seen{$t[0]}){				# only consider target genes listed in ./data/At.target.genes.txt 
 		unless ( $seen{$l} ){			# remove duplicated gene-cluser line
 			$g{$t[1]} .= "$t[0]\t";
 			$count{$t[1]} ++;
@@ -193,7 +195,6 @@ foreach $k ( @c ){
 		my $p5 = join("/", @logp);
 		my $p6 = join("/", @top_gene_symbl);
 		my $p7 = join("/", @top_gene_b);
-		#$p8 = join("/", @top_gene_pc);
 		my $p9 = join("/", @top_gene_id);
 
 		my $percentage = int($n_c / $count{$k}*1000 + 0.5) / 1000 ;

@@ -24,16 +24,26 @@ drawChordDiagram <- function (chordfile = "chord.lists.txt", ratio = 1, cex = 1)
 }
 
 
-directChordDiagram <- function ( module, tfnum = 50, targetnum = 15, ratio = 1, cex = 1)
+getChordDiagram <- function ( module, tfnum = 50, targetnum = 15, ratio = 1, cex = 1)
 {
 	if (!file.exists("results.regulator.tfs.txt")){
 		cat ("The file 'results.regulator.tfs.txt' not found.\n")
 		return("Exit")
 	}
+
+	if (!file.exists("getChordLists.pl")){
+		cat ("The file 'getChordLists.pl' not found. This file is required for extracting the TF-target gene pairs for the input module. It should be placed within the home folder of the EXPLICIT package.\n")
+		return("Exit")
+	}
 	a <- read.table("results.regulator.tfs.txt",heade=T,sep="\t")
 	if ( module %in% a[,1]){
+		unlink( "chord.lists.txt" ) 
 		perlcmd = paste("perl getChordLists.pl",module,tfnum,targetnum,sep=" ")
 		system( perlcmd )
+		if (!file.exists("chord.lists.txt")){
+			cat ("Perl is required for the analysis. Make sure Perl is installed properly and it can be invoked from command line.\n")
+			return("Exit")
+		}
 		drawChordDiagram( chordfile = "chord.lists.txt", ratio = ratio, cex = cex)
 	}else{
 		cat ("The module ",module," was not found in 'results.regulator.tfs.txt'.","\n",sep="")
