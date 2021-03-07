@@ -9,27 +9,24 @@ classdef explicit_kfcv
 	end
 
 	methods (Static)
-		function obj = explicit_kfcv (x1, x2, tf_name, gene_name, x3, x4) % x1: tf gene expression matrix; x2: target gene expression matrix; x3: number of repeats; x4: number of folds
+		function obj = explicit_kfcv (tf_mtx, target_mtx, tf_name, gene_name, repeat, fold) % tf_mtx: tf gene expression matrix; target_mtx: target gene expression matrix; repeat: number of repeats; fold: number of folds
 	
 			fprintf('Building predictor model with full dataset...\n');	
 
-			cross_repeat_num = 5;
-			fold = 10;
-
-			obj.Target_gene_name = gene_name;
-			obj.Total_repeats = cross_repeat_num;
-			obj.Fold_number = fold;
+			repeat_num = 5;
+			fold_num = 10;
 
 			if nargin == 6
-				cross_repeat_num = x3;
-				fold = x4;
+				repeat_num = repeat;
+				fold_num = fold;
 			end
 
-			obj.Total_repeats = cross_repeat_num;
-			obj.Fold_number = fold;
+			obj.Target_gene_name = gene_name;
+			obj.Total_repeats = repeat_num;
+			obj.Fold_number = fold_num;
 			
-			B = x2;
-			A = [ones(size(x1,1),1) x1];
+			B = target_mtx;
+			A = [ones(size(tf_mtx,1),1) tf_mtx];
 			beta = (A' * A) \ (A' * B);
 
 			H = A * inv( A' * A ) * A';
@@ -65,19 +62,19 @@ classdef explicit_kfcv
 			e1 = e1';
 			e2 = e2';
 
-			fprintf('\nStarting %d repeats of %d-fold cross-validation runs ...\n\n Rep-Iteration#\tNRMSE_Training\tNRMSE_Test\tR_Training\tR_Test', cross_repeat_num, fold);
-			crv = zeros( cross_repeat_num * fold, 4);
+			fprintf('\nStarting %d repeats of %d-fold cross-validation runs ...\n\n Rep-Iteration\tNRMSE_Training\tNRMSE_Test\tR_Training\tR_Test', repeat_num, fold_num);
+			crv = zeros( repeat_num * fold_num, 4);
 			% Bootstraps to evaluate the stability of beta.
 			bm = [e3 e4];
 			d = size(A,1);
-			r_by_gene = zeros (size(B,2), cross_repeat_num * fold);
-			for p = 1 : cross_repeat_num
+			r_by_gene = zeros (size(B,2), repeat_num * fold_num);
+			for p = 1 : repeat_num
 				i = datasample(1:d,d,'Replace',false);
 				As = A(i,:);
 				Bs = B(i,:);
-				for q = 0:(fold - 1)
+				for q = 0:(fold_num - 1)
 					fprintf('\nRepeat %d - %d', p, q+1);
-					idx2 = (mod(1:d,fold) == q);
+					idx2 = (mod(1:d,fold_num) == q);
 					Am = As(~idx2,:);
 					Bm = Bs(~idx2,:);
 					At = As(idx2,:);
@@ -103,7 +100,7 @@ classdef explicit_kfcv
 					Rt = [];
 					Bm = [];
 
-					idx2 = p * fold + q - fold + 1;
+					idx2 = p * fold_num + q - fold_num + 1;
 					crv( idx2, 3 ) = m_NRSME;
 					crv( idx2, 4 ) = t_NRSME;
 					crv( idx2, 1 ) = p;
@@ -123,7 +120,7 @@ classdef explicit_kfcv
 			colName ={'Repeat','Iteration','NRMSE_training','NRMSE_test','R_training','R_test'};
 			obj.CV_Stat = table(crv(:,1),crv(:,2),crv(:,3),crv(:,4),crv(:,5),crv(:,6),'VariableNames',colName);
 
-			bm = bm(:,3:(cross_repeat_num * fold + 2));
+			bm = bm(:,3:(repeat_num * fold_num + 2));
 			bm = bm';
 			e5 = mean( bm );
 			e6 = std(bm);
