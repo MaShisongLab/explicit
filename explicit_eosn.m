@@ -5,7 +5,7 @@ classdef explicit_eosn    % eosn: Effect of sample number. To test how the numbe
 	end
 
 	methods (Static)
-		function obj=explicit_eosn (x1, x2, TestSampleNum)   % x1: tf gene expression matrix; x2: target gene expression matrix; TestSampleNum: the number of samples held out as test samples.
+		function obj=explicit_eosn (tf_mtx, target_mtx, TestSampleNum)   % tf_mtx: tf gene expression matrix; target_mtx: target gene expression matrix; TestSampleNum: the number of samples held out as test samples.
 			
 			if nargin < 3
 				TestSampleNum = 3000;
@@ -13,8 +13,8 @@ classdef explicit_eosn    % eosn: Effect of sample number. To test how the numbe
 			
 			obj.TestSampleNumber = TestSampleNum;
 				
-			B = x2;
-			A = [ones(size(x1,1),1) x1];
+			B = target_mtx;
+			A = [ones(size(tf_mtx,1),1) tf_mtx];
 
 			i = datasample( 1:size(A,1), TestSampleNum, 'Replace', false);
 			idx = ismember( 1:size(A,1), i);
