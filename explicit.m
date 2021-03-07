@@ -18,9 +18,9 @@ classdef explicit
 	end
 
 	methods (Static)
-		function obj=explicit (x1, x2, tf_name, target_name) % x1, tf gene expression matrix; x2, target gene matrix. samples in rows, tfs/genes in column.
-			B = x2;
-			A = [ones(size(x1,1),1) x1];
+		function obj=explicit (tf_mtx, target_mtx, tf_name, target_name) % tf_mtx, tf gene expression matrix; target_mtx, target gene matrix. samples in rows, tfs/genes in column.
+			B = target_mtx;
+			A = [ones(size(tf_mtx,1),1) tf_mtx];
 			beta = (A' * A) \ (A' * B);
 
 			Bp = A * beta;
