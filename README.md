@@ -136,8 +136,8 @@ itf = h5read("At.matrix.demo.h5","/idx_tf_gene") == 1;
 itarget = h5read("At.matrix.demo.h5","/idx_target_gene") == 1; 	
 
 % Obtain the TF expression matrix, target gene expression matrix
-tf_mtx_demo = mtx_demo(:,itf); 		
-target_mtx_demo = mtx_demo(:,itarget); 		
+tf_mtx_demo = mtx_demo(:,itf);
+target_mtx_demo = mtx_demo(:,itarget);
 
 % Obtain the TF gene names and target gene names
 tf_name = gene_name(itf);
