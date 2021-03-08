@@ -24,7 +24,7 @@ drawChordDiagram <- function (chordfile = "chord.lists.txt", ratio = 1, cex = 1)
 }
 
 
-getChordDiagram <- function ( module, tfnum = 50, targetnum = 15, ratio = 1, cex = 1)
+getChordDiagram <- function ( module, ratio = 1, tfnum = 50, targetnum = 15, cex = 1)
 {
 	if (!file.exists("results.regulator.tfs.txt")){
 		cat ("The file 'results.regulator.tfs.txt' not found.\n")
@@ -32,7 +32,7 @@ getChordDiagram <- function ( module, tfnum = 50, targetnum = 15, ratio = 1, cex
 	}
 
 	if (!file.exists("getChordLists.pl")){
-		cat ("The file 'getChordLists.pl' not found. This file is required for extracting the TF-target gene pairs for the input module. It should be placed within the home folder of the EXPLICIT package.\n")
+		cat ("The file 'getChordLists.pl' was not found. This file is required for extracting the TF-target gene pairs for the input module. It should be placed within the home folder of the EXPLICIT package.\n")
 		return("Exit")
 	}
 	a <- read.table("results.regulator.tfs.txt",heade=T,sep="\t")
