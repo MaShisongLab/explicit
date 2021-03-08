@@ -130,7 +130,7 @@ At.matrix.full.h5
    └───sample_id		(2 samples)
 ```
 #### (2). Create the expression predictor
-The following analysis builds a gene expression predictor model using the smaller matrix. The analysis is conducted within a MATLAB console. * The analysis is memory-intensive and requires around 20G computer memory.*
+The following analysis builds a gene expression predictor model using the smaller matrix. The analysis is conducted within a MATLAB console. <i> The analysis is memory-intensive and requires around 20G computer memory.</i>
 ```matlab
 % MATLAB code
 % Navigate to and start within the home directory of the EXPLICIT package.
