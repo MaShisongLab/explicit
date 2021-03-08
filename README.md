@@ -33,12 +33,13 @@ Once the required software is installed, just download or clone the whole packag
 #### (1). Prepare the module file
 The file used to store gene modules information is `modules_to_analyze.txt`. It is preloaded with 1,085 gene modules identified from a gene co-expression network described in the paper by [Geng <i>et al.</i>](https://github.com/MaShisongLab/explicit#Reference). The following analysis will proceed with these preloaded modules. On the other hand, you can also edit the file, replacing these modules with your own ones. The file has two tab-separated columns, with the first column being gene ids and the second being module names. For gene ids, only standard Arabidopsis AGI ids are supported. Multiple modules can be analyzed at the same time. <i>Once finish editing, save the file without changing its name</i>.
 ```
-Gene_Name   ModuleID
-AT1G25360   Module138
-AT2G22340   Module138
-AT5G75660   Moudle138
-AT2G22130   Module139
-AT4G12350   Module139
+AT5G59360	Module0065
+AT5G60690	Module0065
+AT5G61480	Module0065
+AT5G62710	Module0065
+AT5G66300	Module0065
+AT1G06830	Module0066
+AT1G10380	Module0066
 .........   ........
 ```
 #### (2). Conduct enrichment assay to identify TF regulators for the modules
@@ -68,18 +69,28 @@ source("Rscripts.R")
 # The function requires the 'circlize' package
 library("circlize")
 
-# To draw a chord diagram for Module0105
-getChordDiagram( module="Module0105", ratio = 1, tfnum = 50, targetnum = 15)
+# To draw a chord diagram for Module0065
+getChordDiagram( module="Module0065", ratio = 1, tfnum = 50, targetnum = 15)
+
+# To draw a chord diagram for Module0084
+getChordDiagram( module="Module0084", ratio = 1, tfnum = 50, targetnum = 15)
 
 # Change the relative size of the target gene area
-getChordDiagram( module="Module0105", ratio = 0.5, tfnum = 50, targetnum = 15)
+getChordDiagram( module="Module0084", ratio = 0.6, tfnum = 50, targetnum = 15)
+
+# To draw a chord diagram for Module0046
+getChordDiagram( module="Module0046", ratio = 1, tfnum = 50, targetnum = 15)
+
+# A chord diagram with only the top 30 TFs
+getChordDiagram( module="Module0046", ratio = 1, tfnum = 30, targetnum = 15)
 
 # To draw chord diagrams for other modules
-getChordDiagram( module="Module0084", ratio = 1, tfnum = 50, targetnum = 15)
-getChordDiagram( module="Module0081", ratio = 1, tfnum = 50, targetnum = 15)
 getChordDiagram( module="Module0105", ratio = 1, tfnum = 50, targetnum = 15)
+getChordDiagram( module="Module0272", ratio = 1, tfnum = 50, targetnum = 15)
+getChordDiagram( module="Module0011", ratio = 1, tfnum = 50, targetnum = 15)
 ```
 Here are some output diagrams:
+![alt-text](./data/chord_diagrams.png "Output result example")
 
 ### 3. Create custom gene expression predictor 
 We currently only have the gene expression predictor model for *Arabidopsis thaliana*. We are working on predictor models for other species. At the same time, you can also create your own custom gene expression predictor (<i>Note: a large number of samples are required for training the model</i>). The MATLAB function <B>`explicit`</B>, as specified within the file `explicit.m`, is used to create the predictor model. The file can be found within the home folder of the package. The function has the following syntax:
@@ -119,7 +130,7 @@ At.matrix.full.h5
    └───sample_id		(2 samples)
 ```
 #### (2). Create the expression predictor
-The following analysis builds a gene expression predictor model using the smaller matrix. The analysis is conducted within a MATLAB console. 
+The following analysis builds a gene expression predictor model using the smaller matrix. The analysis is conducted within a MATLAB console. * The analysis is memory-intensive and requires around 20G computer memory.*
 ```matlab
 % MATLAB code
 % Navigate to and start within the home directory of the EXPLICIT package.
