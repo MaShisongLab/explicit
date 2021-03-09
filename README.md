@@ -353,7 +353,7 @@ mdl_cv_5000.Test_Sample_Stat =
 ```
 When using 5000, 4000, 3000, or 2000 samples to train the predictor model, the mean correlation for test samples are 0.9910, 0.9891, 0.9841, 0.9572, respectively.
 #### (7). Use the full matrix to perform the analysis
-Next we will analyze the full matrix. <i>Note: Since the matrix is large, it requires a large amount of computational resource. It is recommended to have at least 80G memory available.</i>
+Next we will conduct the analysis with the full matrix. Significant interacting TF-target genes pairs (SigEdges) will be derived. They are the same SigEdges used in Step 1 for deriving TF regulators for gene modules. <i>Note: Since the matrix is large, it requires a large amount of computational resource. It is recommended to have at least 80G memory available.</i>
 ```matlab
 % MATLAB code
 % clear all previous variables to free memory
@@ -377,9 +377,10 @@ target_name = gene_name(itarget);
 mdl_full = explicit( tf_mtx_full, target_mtx_full, tf_name, target_name); 
 mdl_full    
 
-% The predictor has 3298936  SigEdges (TF-target gene pairs) with pValue <= 0.00001
+% The predictor has 3298936  SigEdges (significant interaction TF-target gene pairs) with pValue <= 0.00001.
 % Next the SigEdges with pValue <= 1e-9 are extracted and saved to a file named "Arabidopsis.SigEdges.1e-9.txt". 
-% This file is the same as the file "At.SigEdges.txt" within the data directory.
+% The file contains the same SigEdgs as the file "At.SigEdges.txt" within the data directory,
+% which is used by the script "getArabidopsisRegulatorTFs.pl" to derive TF-regulators for gene modules in Step 1.
 % There are 980736 SigEdges with pValue <= 1e-9. 
 % These SigEdges are also the same SigEdges reported in the paper by Geng et al.
 i = mdl_full.SigEdges{:,4} <= 1e-9 ;
