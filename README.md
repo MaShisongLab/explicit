@@ -433,4 +433,4 @@ The mean correlation for the test samples is 0.9934 for the full model, which is
 
 ## Reference
 
-Will update soon.
+Geng HY, Wang M, Gong JZ, Xu YP and Ma SS, An Arabidopsis expression predictor enables inference of transcriptional regulators for gene modules, Plant Journal, in press.
